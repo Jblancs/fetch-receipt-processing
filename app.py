@@ -13,5 +13,9 @@ app.receipts = {}
 # blueprints
 app.register_blueprint(receipt_bp, url_prefix='/api')
 
+# Initialize the API and add resources
+api.init_app(app)
+
+
 if __name__ == '__main__':
     app.run(debug=True)
