@@ -1,5 +1,7 @@
 from flask_restx import Api
 from flask import Blueprint
+from .resources import api
 
 receipt_bp = Blueprint('receipts', __name__)
-api = Api(receipt_bp)
+
+api.init_app(receipt_bp)
