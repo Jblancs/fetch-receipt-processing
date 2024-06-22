@@ -2,20 +2,19 @@ from flask import Flask
 from flask_restx import Api
 from flask_cors import CORS
 from receipt_processing import receipt_bp
+# from receipt_processing.resources import ReceiptResource
 
 app = Flask(__name__)
-api = Api(app)
 CORS(app)
 
 # In-memory storage for receipts as a dictionary
-app.receipts = {}
+# app.receipts = {}
 
 # blueprints
-app.register_blueprint(receipt_bp, url_prefix='/api')
+app.register_blueprint(receipt_bp, url_prefix='/receipts')
 
-# Initialize the API and add resources
-api.init_app(app)
-
+# api.add_resource(ReceiptResource, '/', '/test',
+#                  resource_class_kwargs={'receipts': app.receipts})
 
 if __name__ == '__main__':
     app.run(debug=True)

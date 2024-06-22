@@ -1,10 +1,15 @@
 from flask_restx import Api
-from flask import Blueprint, current_app
-from resources import ReceiptResource
+from flask import Blueprint
+from .schemas import api as ns
+from .resources import ReceiptResource
 
 receipt_bp = Blueprint('receipts', __name__)
 
-api = Api(receipt_bp)
+api = Api(receipt_bp, title="Receipts API", version="1.0", description="Operations for Receipts API")
 
-api.add_resource(ReceiptResource, '/<int:id>/points', '/',
-                 resource_class_kwargs={'receipts': current_app.receipts})
+api.add_namespace(ns)
+
+api.add_resource(ReceiptResource, '/', '/test',
+                 resource_class_kwargs={'receipts': {}})
+
+print("\n\n\n\n" , api.resources, "test")

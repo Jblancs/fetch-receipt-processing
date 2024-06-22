@@ -1,7 +1,9 @@
 from flask_restx import Resource, reqparse
-from .schemas import receipt_request_model, receipt_response_model, api
+from .schemas import api, receipt_request_model, receipt_response_model
 from .utils import combine_date_time, generate_id
 from .models import Receipt
+
+print(f"API object: {api}")
 
 class ReceiptResource(Resource):
     def __init__(self, *args, **kwargs):
@@ -31,4 +33,7 @@ class ReceiptResource(Resource):
 
         new_receipt.id = generate_id(self.receipts)
 
-        return {"id" : new_receipt["id"]}, 201
+        return new_receipt, 201
+
+    def get(self):
+        return {"message" : "test"}
