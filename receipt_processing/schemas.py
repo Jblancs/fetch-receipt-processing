@@ -5,7 +5,7 @@ api = Namespace('receipts', description='Receipt related operations')
 
 item_model = api.model('Item', {
     'shortDescription': fields.String(required=True, description='The item description'),
-    'price': fields.Float(required=True, description='The item price')
+    'price': fields.String(required=True, description='The item price')
 })
 
 receipt_request_model = api.model('Receipt', {
@@ -13,7 +13,7 @@ receipt_request_model = api.model('Receipt', {
     'purchaseDate': fields.String(required=True, description='The purchase date'),
     'purchaseTime': fields.String(required=True, description='The purchase time'),
     'items': fields.List(fields.Nested(item_model), required=True, description='List of items in the receipt'),
-    'total': fields.Float(required=True, description='The total amount of the receipt'),
+    'total': fields.String(required=True, description='The total amount of the receipt'),
 })
 
 receipt_response_model = api.model('Receipt', {
@@ -22,6 +22,6 @@ receipt_response_model = api.model('Receipt', {
     'purchaseDate': fields.String(required=True, description='The purchase date'),
     'purchaseTime': fields.String(required=True, description='The purchase time'),
     'items': fields.List(fields.Nested(item_model), required=True, description='List of items in the receipt'),
-    'total': fields.Float(required=True, description='The total amount of the receipt'),
+    'total': fields.String(required=True, description='The total amount of the receipt'),
     'points': fields.Integer(description='Points assigned to the receipt')
 })

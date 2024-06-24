@@ -1,16 +1,17 @@
 from flask_restx import Resource, reqparse
-from .schemas import api, receipt_request_model, receipt_response_model
+from .schemas import receipt_request_model, receipt_response_model
+from .schemas import api as ns
 from .utils import combine_date_time, generate_id
 from .models import Receipt
 
-print(f"API object: {api}")
+print(f"\n\n\n\n namespace api: {ns}")
 
 class ReceiptResource(Resource):
     def __init__(self, *args, **kwargs):
         self.receipts = kwargs['receipts']
 
-    @api.expect(receipt_request_model)
-    @api.marshal_with(receipt_response_model, code=201)
+    @ns.expect(receipt_request_model)
+    @ns.marshal_with(receipt_response_model, code=201)
     def post(self):
         parser = reqparse.RequestParser()
 
@@ -22,18 +23,17 @@ class ReceiptResource(Resource):
 
         args = parser.parse_args()
 
-        datetime_obj = combine_date_time(args["purchaseDate"], args["purchaseTime"])
-
         new_receipt = Receipt(
             retailer = args["retailer"],
-            purchase_datetime = datetime_obj,
+            purchase_date = args["purchaseDate"],
+            purchase_time = args["purchaseTime"],
             items = args["items"],
             total = args["total"]
         )
 
         new_receipt.id = generate_id(self.receipts)
 
-        return new_receipt, 201
+        return new_receipt.to_dict(), 201
 
     def get(self):
         return {"message" : "test"}

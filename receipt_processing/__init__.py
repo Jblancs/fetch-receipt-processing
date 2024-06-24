@@ -12,4 +12,4 @@ api.add_namespace(ns)
 api.add_resource(ReceiptResource, '/', '/test',
                  resource_class_kwargs={'receipts': {}})
 
-print("\n\n\n\n" , api.resources, "test")
+print("\n\n\n\n init api" , api)
